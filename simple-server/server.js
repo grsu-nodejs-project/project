@@ -2,6 +2,8 @@ var http = require('http');
 var qs = require('querystring');
 //var searcher = require('./searcher');
 
+var memory = {};
+
 var server = http.createServer(function(request, response) {
 
 	if (request.url == '/questions' && request.method == 'POST') {
@@ -23,20 +25,21 @@ var server = http.createServer(function(request, response) {
 
 			var options = getOptions(link);
 
-			http.request(options, function(queryResponse) {
-				var html = '';
+			if (!memory[link]) {
+				http.request(options, function(queryResponse) {
+					var html = '';
 
-				queryResponse.setEncoding('utf8');
-				queryResponse.on('data', function(data) {
-					html += data;
-				});
+					queryResponse.setEncoding('utf8');
+					queryResponse.on('data', function(data) {
+						html += data;
+					});
 
-				queryResponse.on('end', function(){
-					response.writeHeader(200, { 'content-type' : 'text/html' });
+					queryResponse.on('end', function(){
+						response.writeHeader(200, { 'content-type' : 'text/html' });
 
-					var env = require('jsdom').env;
-					env(html, function(errors, window) {
-						console.log(errors);
+						var env = require('jsdom').env;
+						env(html, function(errors, window) {
+							console.log(errors);
 
 						// Doen't work
 						//var result = window.document.getElementsByClassName('Question');
@@ -49,10 +52,17 @@ var server = http.createServer(function(request, response) {
 						for(var i = 0; i < result.length; ++i) {
 							responseBody += result[i].outerHTML;
 						}
+						
+						memory[link] = responseBody;
+
 						response.end(responseBody, 'utf8');
 					});
-				});
-			}).end();
+					});
+				}).end();
+			} else {
+				response.writeHeader(200, { 'content-type' : 'text/html' });
+				response.end(memory[link], 'utf8');
+			}
 
 		});
 
