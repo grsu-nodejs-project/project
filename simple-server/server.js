@@ -1,6 +1,6 @@
 var http = require('http');
 var qs = require('querystring');
-//var searcher = require('./searcher');
+var searcher = require('./searcher');
 
 var memory = {};
 
@@ -26,39 +26,11 @@ var server = http.createServer(function(request, response) {
 			var options = getOptions(link);
 
 			if (!memory[link]) {
-				http.request(options, function(queryResponse) {
-					var html = '';
-
-					queryResponse.setEncoding('utf8');
-					queryResponse.on('data', function(data) {
-						html += data;
-					});
-
-					queryResponse.on('end', function(){
-						response.writeHeader(200, { 'content-type' : 'text/html' });
-
-						var env = require('jsdom').env;
-						env(html, function(errors, window) {
-							console.log(errors);
-
-						// Doen't work
-						//var result = window.document.getElementsByClassName('Question');
-
-						var $ = require('jquery')(window);
-						var result = $('.question');
-
-						var responseBody = '';
-
-						for(var i = 0; i < result.length; ++i) {
-							responseBody += result[i].outerHTML;
-						}
-						
-						memory[link] = responseBody;
-
-						response.end(responseBody, 'utf8');
-					});
-					});
-				}).end();
+				searcher.searcher.search(options);
+				searcher.searcher.on('find', function(responseBody) {
+					response.writeHeader(200, { 'content-type' : 'text/html' });
+					response.end(responseBody, 'utf8');
+				});
 			} else {
 				response.writeHeader(200, { 'content-type' : 'text/html' });
 				response.end(memory[link], 'utf8');

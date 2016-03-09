@@ -1,44 +1,42 @@
 var http = require('http');
+var util = require('util');
+var EventEmitter = require('events');
 
-exports.search = function(link) {
+function Searcher() {
+	EventEmitter.call(this);
+}
+util.inherits(Searcher, EventEmitter);
+searcher = new Searcher();
 
-	var options = getOptions(link);
+searcher.search = function(link) {
 
-	var result = '';
+	var body = '';
 
-	http.request(options, function(response) {
-		var body = '';
+	http.request(link, function(queryResponse) {
+					console.log('1\n');
+					var html = '';
+					queryResponse.setEncoding('utf8');
+					queryResponse.on('data', function(data) {
+						html += data;
+					});
 
-		response.setEncoding('utf8');
-		response.on('data', function(data) {
-			console.log('get data');
-			body += data;
-		});
+					queryResponse.on('end', function(){
 
-		response.on('end', function(){
-			console.log('end data');
-			result = body;
-		});
-	});
+						var env = require('jsdom').env;
+						env(html, function(errors, window) {
+
+						var $ = require('jquery')(window);
+						var result = $('.question');
+
+						for(var i = 0; i < result.length; ++i) {
+							body += result[i].outerHTML;
+						}
+
+						searcher.emit('find', body);
+					});
+					});
+				}).end();
 
 }
 
-function getOptions(link) {
-	var hostname = link.split('/')[2];
-	var url = link.split('/').slice(2).join('/');
-
-	//console.log(url);
-
-	var options = {
-		host: hostname,
-		port: '80',
-		url: url,
-		method: 'GET'
-	};
-
-	// for(var key in options) {
-	// 	console.log(key + ' = ' + options[key]);
-	// }
-
-	return options;
-}
+module.exports.searcher = searcher;
