@@ -7,3 +7,21 @@ Trailers will only be emitted if chunked encoding is used for the response; по
 как сделать так, что бы не прописывать жесткие пути в форме.
 
 почему не работает express req.on('data'). как до этого доступиться
+
+как тестировать методы (приватные внутри модулей).
+
+удобный запуск тестов.
+
+vviital@vviital-K53SV:~/nodejs/project/intgame/test$ mocha httpPageSearcherTest.js 
+
+
+  module httpPageSearcher test
+    ✓ module httpPageSearcher exist
+[Function]
+[Function]
+    ✓ Searcher return page (1022ms)
+
+
+  2 passing (1s)
+
+почему выводится [Function]
