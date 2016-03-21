@@ -3,6 +3,13 @@ var handlebars = require('handlebars');
 var heredoc = require('heredoc');
 var Searcher = require('../lib/httpPageSearcher')
 var qs = require('querystring');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/intgame');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+
+var Questions = require('../lib/questionsSchema');
 
 var questionForms = heredoc(function() { /*
 	<html>
@@ -32,11 +39,24 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res, next) {
 	var link = req.body.link;
-	searcher = new Searcher();
-	searcher.search(link);
-	searcher.on('find', function(data) {
-		req.data = data;
-		next();
+	Questions.find({link: link}, function(err, questions) {
+		if (questions.length == 0) {
+			searcher = new Searcher();
+			searcher.search(link);
+			searcher.on('find', function(data) {
+				req.data = data;
+				var question = new Questions({link: link, question: data});
+				question.save(function(error, question) {
+					if (error) return console.log(error.stack);
+				});
+				next();
+			});
+		} else {
+			console.log(link + " from database");
+			req.data = questions[0].question;
+			next();
+		}
+		
 	});
 });
 
