@@ -1,7 +1,7 @@
 var express = require('express');
 var handlebars = require('handlebars');
 var heredoc = require('heredoc');
-var Searcher = require('../lib/httpPageSearcher')
+var Searcher = require('../lib/httpPageSearcher');
 var qs = require('querystring');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/intgame');
@@ -34,34 +34,36 @@ var questionForms = heredoc(function() { /*
 var router = express.Router();
 
 router.get('/', function(req, res) {
-	res.send(questionForms);
+  res.send(questionForms);
 });
 
 router.post('/', function(req, res, next) {
-	var link = req.body.link;
-	Questions.find({link: link}, function(err, questions) {
-		if (questions.length == 0) {
-			searcher = new Searcher();
-			searcher.search(link);
-			searcher.on('find', function(data) {
-				req.data = data;
-				var question = new Questions({link: link, question: data});
-				question.save(function(error, question) {
-					if (error) return console.log(error.stack);
-				});
-				next();
-			});
-		} else {
-			console.log(link + " from database");
-			req.data = questions[0].question;
-			next();
-		}
-		
-	});
+  var link = req.body.link;
+  Questions.find({link: link}, function(err, questions) {
+    if (questions.length == 0) {
+      searcher = new Searcher();
+      searcher.search(link);
+      searcher.on('find', function(data) {
+        req.data = data;
+        var question = new Questions({link: link, question: data});
+        question.save(function(error, question) {
+          if (error) {
+            return console.log(error.stack);
+          }
+        });
+        next();
+      });
+    } else {
+      console.log(link + ' from database');
+      req.data = questions[0].question;
+      next();
+    }
+
+  });
 });
 
 router.post('/', function(req, res) {
-	res.send(questionForms + req.data);
+  res.send(questionForms + req.data);
 });
 
 module.exports = router;
