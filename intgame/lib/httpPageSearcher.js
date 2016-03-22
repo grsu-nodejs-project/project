@@ -1,10 +1,10 @@
 var http = require('http');
 var util = require('util');
 var EventEmitter = require('events');
-	var env = require('jsdom').env;
+var env = require('jsdom').env;
+var cheerio = require('cheerio');
 
-function getItemsByClass(html, className, callback) {
-  console.log(callback);
+function getItemsByClass(html, className, next, callback) {
   var body = '';
   env(html, function(errors, window) {
     var $ = require('jquery')(window);
@@ -15,12 +15,29 @@ function getItemsByClass(html, className, callback) {
   });
 };
 
+function convertHtmlToObject(html, className, callback) {
+  var $ = cheerio.load(html);
+  var resultArray = [];
+  var needFindClass = ['Question', 'Answer', 'PassCriteria', 'Comments', 'Sources'];
+  var cnt = 0;
+  $(className).each(function() {
+    var obj = new Object();
+    var context = this;
+    needFindClass.forEach(function(value) {
+      var text = $(context).find($('.' + value)).parent().text();
+      obj[value] = text.trim();
+    });
+    resultArray.push(obj);
+  });
+  callback(resultArray);
+};
+
 function Searcher() {
   EventEmitter.call(this);
 
   var context = this;
 
-  resultIsReady = function(body) {
+  var resultIsReady = function(body) {
     context.emit('find', body);
   };
 
@@ -32,8 +49,8 @@ function Searcher() {
         html += data;
       });
       response.on('end', function() {
-        console.log(resultIsReady);
-        getItemsByClass(html, '.question', resultIsReady);
+        convertHtmlToObject(html, '.question', resultIsReady);
+        //getItemsByClass(html, '.question', convertHtmlToObject ,resultIsReady);
       });
 
       response.on('error', function(error) {

@@ -57,12 +57,12 @@ router.post('/', function(req, res, next) {
       req.data = questions[0].question;
       next();
     }
-
   });
 });
 
 router.post('/', function(req, res) {
-  res.send(req.questionForms + req.data);
+  console.log(req.data);
+  res.send(req.questionForms + JSON.stringify(req.data));
 });
 
 function saveQuestion(link, data) {
