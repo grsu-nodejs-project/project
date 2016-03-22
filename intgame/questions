@@ -25,3 +25,10 @@ vviital@vviital-K53SV:~/nodejs/project/intgame/test$ mocha httpPageSearcherTest.
   2 passing (1s)
 
 почему выводится [Function]
+
+
+{{#each links}}
+		{{#with this}}
+			<p><a href="/qustions/id={{_id}}">link</a></p>
+		{{/with}}
+	{{/each}}

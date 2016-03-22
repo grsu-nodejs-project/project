@@ -14,7 +14,9 @@ describe('Questions routes test', function() {
     .expect('Content-type', 'text/html; charset=utf-8')
     .end(function(err, res) {
       // why we return done(err) ???
-      if (err) return done(err);
+      if (err) {
+        return done(err);
+      }
       done();
     });
   });
@@ -24,9 +26,11 @@ describe('Questions routes test', function() {
     .send({link: 'http://db.chgk.info/tour/turn13'})
     .expect(200)
     .expect('Content-type', 'text/html; charset=utf-8')
-  	.end(function(err, res) {
-    if (err) return done(err);
-    done();
-  	});
+    .end(function(err, res) {
+      if (err) {
+        return done(err);
+      }
+      done();
+    });
   });
 });
