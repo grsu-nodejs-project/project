@@ -1,0 +1,20 @@
+<!-- 'Question', 'Answer', 'PassCriteria', 'Comments', 'Sources', 'razdatka' -->
+<div>
+	<table border="1px">
+	{{#each questions}}
+		<tr>
+			<td>{{@index}} </td>
+			<td>{{this.question}}</td>
+			<td>{{this.answer}}</td>
+			<td>{{this.passCriteria}}</td>
+			<td>{{this.comments}}</td>
+			<td>{{this.sources}}</td>
+			<td>
+				{{#if this.image}}
+					<img src="{{this.image}}"/>
+				{{/if}}
+			</td>
+		</tr>
+	{{/each}}
+	</table>
+</div>

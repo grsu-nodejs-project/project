@@ -14,7 +14,7 @@ var Questions = require('../lib/questionsSchema');
 // where I should store this path???
 var questionFormsPath = './handlebars/questionFormTemplate.html';
 //var questionsPagePath = './handlebars/questionsPageTempalate.html';
-
+var questionViewPath = './handlebars/questionView.html';
 var router = express.Router();
 
 // how I can test this router use?
@@ -60,9 +60,21 @@ router.post('/', function(req, res, next) {
   });
 });
 
+router.post('/', function(req, res, next) {
+   var templateReader = new TemplateReader();
+   templateReader.read(questionViewPath);
+   templateReader.on('end', function(source) {
+    var template = handlebars.compile(source);
+    console.log(req.data.toString());
+    req.html = template({questions :req.data});
+    console.log(req.html);
+    next();
+   });
+ });
+
 router.post('/', function(req, res) {
   console.log(req.data);
-  res.send(req.questionForms + JSON.stringify(req.data));
+  res.send(req.questionForms + req.html);
 });
 
 function saveQuestion(link, data) {

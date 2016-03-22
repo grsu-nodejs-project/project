@@ -25,8 +25,12 @@ function convertHtmlToObject(html, className, callback) {
     var context = this;
     needFindClass.forEach(function(value) {
       var text = $(context).find($('.' + value)).parent().text();
-      obj[value] = text.trim();
+      obj[value.toLowerCase()] = text.trim();
     });
+    var image = $(context).find('img').attr('src');
+    if (image) {
+      obj.image = image;
+    }
     resultArray.push(obj);
   });
   callback(resultArray);
