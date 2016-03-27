@@ -5,6 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+//Database
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/intgame');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+//
+
 var routes = require('./routes/index');
 var questions = require('./routes/questions');
 

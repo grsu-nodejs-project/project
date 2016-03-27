@@ -12,23 +12,21 @@ Trailers will only be emitted if chunked encoding is used for the response; по
 
 удобный запуск тестов.
 
-vviital@vviital-K53SV:~/nodejs/project/intgame/test$ mocha httpPageSearcherTest.js 
-
-
-  module httpPageSearcher test
-    ✓ module httpPageSearcher exist
-[Function]
-[Function]
-    ✓ Searcher return page (1022ms)
-
-
-  2 passing (1s)
-
-почему выводится [Function]
-
-
 {{#each links}}
 		{{#with this}}
 			<p><a href="/qustions/id={{_id}}">link</a></p>
 		{{/with}}
 	{{/each}}
+
+как тестировать приватные методы, а не API.
+
+поговорить о синхронности и асинхронности
+как самому создавать ассинхронные методы	
+https://www.nczonline.net/blog/2013/07/09/the-case-for-setimmediate/ nexttick - спросить
+
+где хранить коннект базы данных
+
+
+izs release zalgo почитать статью
+
+nconf 

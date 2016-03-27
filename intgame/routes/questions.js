@@ -3,17 +3,11 @@ var handlebars = require('handlebars');
 var heredoc = require('heredoc');
 var Searcher = require('../lib/httpPageSearcher');
 var qs = require('querystring');
-var mongoose = require('mongoose');
+var db = require('mongoose').connection;
 var TemplateReader = require('../lib/templateReader');
-mongoose.connect('mongodb://localhost/intgame');
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-
 var Questions = require('../lib/questionsSchema');
-// where I should store this path???
+
 var questionFormsPath = './handlebars/questionFormTemplate.html';
-//var questionsPagePath = './handlebars/questionsPageTempalate.html';
 var questionViewPath = './handlebars/questionView.html';
 var router = express.Router();
 
@@ -26,15 +20,6 @@ router.use(function(req, res, next) {
     next();
   });
 });
-
-// router.use(function(req, res, next) {
-//   var templateReader = new TemplateReader();
-//   templateReader.read(questionsPagePath);
-//   templateReader.on('end', function(template) {
-//     req.questionsPage = template;
-//     next();
-//   });
-// });
 
 router.get('/', function(req, res) {
 
