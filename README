@@ -2,4 +2,5 @@ nodejs project
 1. simple server
 2. simple server with express
 3. tests with mocha and chai
-4. database mongodb
+4. database mongodb (now I comment code with database, because need to rethink database schema)
+5. simple xmlHttpRequest
