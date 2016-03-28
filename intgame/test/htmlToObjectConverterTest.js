@@ -11,17 +11,17 @@ htmlArray = ['<div class="question" id="turn13.2-14">',
  '<strong class="Authors">Автор:</strong> <a href="http://db.chgk.info/person/mmezhova">Марина Межова</a> (Москва)    </p><a href="http://db.chgk.info/contact/question/turn13.2/14?destination=/tour/turn13" style="color:red;font-weight:bold;background-color:yellow;width:10px;text-decoration:none" title="Сообщить об ошибке">&nbsp;!&nbsp;</a></div>',
  '</div></div>'];
 
- var needFindClass = ['Question', 'Answer', 'PassCriteria', 'Comments', 'Sources'];
+var needFindClass = ['Question', 'Answer', 'PassCriteria', 'Comments', 'Sources'];
 
 describe('html to object converter module test', () => {
   it('converter test', (done) => {
-  	var html = htmlArray.join();
-  	converter.convertHtmlToObject(html, '.question', (result) => {
-  		assert.equal(result.length, 1);
-  		needFindClass.forEach((value) => {
-  			assert.isDefined(result[0][value.toLowerCase()], value.toLowerCase() + ' property hasn\'t define');
-  		});
-  		done();
-  	});
+    var html = htmlArray.join();
+    converter.convertHtmlToObject(html, '.question', (result) => {
+      assert.equal(result.length, 1);
+      needFindClass.forEach((value) => {
+        assert.isDefined(result[0][value.toLowerCase()], value.toLowerCase() + ' property hasn\'t define');
+      });
+      done();
+    });
   });
 });

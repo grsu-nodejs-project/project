@@ -29,4 +29,71 @@ https://www.nczonline.net/blog/2013/07/09/the-case-for-setimmediate/ nexttick - 
 
 izs release zalgo почитать статью
 
-nconf 
+nconf
+
+
+ValidationError: Question validation failed
+    at MongooseError.ValidationError (/home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/error/validation.js:22:11)
+    at model.Document.invalidate (/home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/document.js:1329:32)
+    at /home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/document.js:1197:17
+    at validate (/home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/schematype.js:693:7)
+    at /home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/schematype.js:724:9
+    at Array.forEach (native)
+    at SchemaString.SchemaType.doValidate (/home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/schematype.js:698:19)
+    at /home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/document.js:1195:9
+    at _combinedTickCallback (node.js:370:9)
+    at process._tickCallback (node.js:401:11)
+[]
+<!-- 'Question', 'Answer', 'PassCriteria', 'Comments', 'Sources', 'razdatka' -->
+<div>
+        <table border="1px">
+        </table>
+</div>
+[]
+POST /questions 200 18.838 ms - 698
+^C
+vviital@vviital-K53SV:~/nodejs/project/intgame$ DEBUG=intgame:* npm start
+
+> intgame@0.0.1 start /home/vviital/nodejs/project/intgame
+> node ./bin/www
+
+  intgame:server Listening on port 3000 +0ms
+GET /questions 200 10.557 ms - 573
+ValidationError: Question validation failed
+    at MongooseError.ValidationError (/home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/error/validation.js:22:11)
+    at model.Document.invalidate (/home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/document.js:1329:32)
+    at /home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/document.js:1197:17
+    at validate (/home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/schematype.js:693:7)
+    at /home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/schematype.js:724:9
+    at Array.forEach (native)
+    at SchemaString.SchemaType.doValidate (/home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/schematype.js:698:19)
+    at /home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/document.js:1195:9
+    at _combinedTickCallback (node.js:370:9)
+    at process._tickCallback (node.js:401:11)
+[]
+<!-- 'Question', 'Answer', 'PassCriteria', 'Comments', 'Sources', 'razdatka' -->
+<div>
+        <table border="1px">
+        </table>
+</div>
+[]
+POST /questions 200 79.583 ms - 698
+^C
+vviital@vviital-K53SV:~/nodejs/project/intgame$ DEBUG=intgame:* npm start
+
+> intgame@0.0.1 start /home/vviital/nodejs/project/intgame
+> node ./bin/www
+
+  intgame:server Listening on port 3000 +0ms
+GET /questions 200 11.470 ms - 573
+ValidationError: Question validation failed
+    at MongooseError.ValidationError (/home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/error/validation.js:22:11)
+    at model.Document.invalidate (/home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/document.js:1329:32)
+    at /home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/document.js:1197:17
+    at validate (/home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/schematype.js:693:7)
+    at /home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/schematype.js:724:9
+    at Array.forEach (native)
+    at SchemaString.SchemaType.doValidate (/home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/schematype.js:698:19)
+    at /home/vviital/nodejs/project/intgame/node_modules/mongoose/lib/document.js:1195:9
+    at _combinedTickCallback (node.js:370:9)
+    at process._tickCallback (node.js:401:11)

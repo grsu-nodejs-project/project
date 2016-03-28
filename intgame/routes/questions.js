@@ -2,8 +2,7 @@ var express = require('express');
 var handlebars = require('handlebars');
 var heredoc = require('heredoc');
 var Searcher = require('../lib/httpPageSearcher');
-var qs = require('querystring');
-var db = require('mongoose').connection;
+//var db = require('mongoose').connection;
 var TemplateReader = require('../lib/templateReader');
 var Questions = require('../lib/questionsSchema');
 
@@ -22,47 +21,56 @@ router.use(function(req, res, next) {
 });
 
 router.get('/', function(req, res) {
-
   res.send(req.questionForms);
 });
 
 router.post('/', function(req, res, next) {
   var link = req.body.link;
-  Questions.find({link: link}, function(err, questions) {
-    if (questions.length == 0) {
-      searcher = new Searcher();
-      searcher.search(link);
-      searcher.on('find', function(data) {
-        req.data = data;
-        saveQuestion(link, data);
-        next();
-      });
-    } else {
-      console.log(link + ' from database');
-      req.data = questions[0].question;
-      next();
-    }
+    console.log(link);
+  console.log(link);
+  searcher = new Searcher();
+  searcher.search(link);
+  searcher.on('find', function(data) {
+    req.data = JSON.stringify(data);
+    saveQuestion(link, data);
+    next();
   });
+  //Questions.find({link: link}, function(err, questions) {
+  //  if (/*questions.length == 0*/true) {
+  //    searcher = new Searcher();
+  //    searcher.search(link);
+  //    searcher.on('find', function(data) {
+  //      req.data = JSON.stringify(data);
+  //      saveQuestion(link, data);
+  //      next();
+  //    });
+  //  } else {
+  //    console.log(link + ' from database');
+  //    req.data = questions[0].question;
+  //    next();
+  //  }
+  //});
 });
 
-router.post('/', function(req, res, next) {
-   var templateReader = new TemplateReader();
-   templateReader.read(questionViewPath);
-   templateReader.on('end', function(source) {
-    var template = handlebars.compile(source);
-    console.log(req.data.toString());
-    req.html = template({questions :req.data});
-    console.log(req.html);
-    next();
-   });
- });
+//router.post('/', function(req, res, next) {
+//   var templateReader = new TemplateReader();
+//   templateReader.read(questionViewPath);
+//   templateReader.on('end', function(source) {
+//     var template = handlebars.compile(source);
+//     console.log(req.data.toString());
+//     req.html = template({questions: req.data});
+//     console.log(req.html);
+//     next();
+//   });
+// });
 
 router.post('/', function(req, res) {
-  console.log(req.data);
-  res.send(req.questionForms + req.html);
+  res.type('json');
+  res.send(req.data);
 });
 
 function saveQuestion(link, data) {
+  return;
   var question = new Questions({link: link, question: data});
   question.save(function(error, question) {
           if (error) {
