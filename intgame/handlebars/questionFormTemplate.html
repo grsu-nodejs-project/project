@@ -1,5 +1,3 @@
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
 <form method="post" name="findQuestions">
     <fieldset>
         <legend>Find questions</legend>
@@ -16,14 +14,11 @@
     document.forms.findQuestions.onsubmit = function() {
         var data = new Object();
         data.link = document.forms.findQuestions.link.value;
-        console.log('start');
         upload(JSON.stringify(data));
-        console.log('end');
         return false;
     }
 
     function upload(json) {
-        console.log(json);
         var hxr = new XMLHttpRequest();
         hxr.open('POST', '/questions', true);
         hxr.setRequestHeader('Content-type', 'application/json');
@@ -31,11 +26,20 @@
         hxr.onreadystatechange = function() {
             if (hxr.readyState != 4) return;
             if (hxr.status == 200) {
-                var response = JSON.parse(hxr.response);
-                console.log(Array.isArray(response));
-                var div = document.getElementById('result').
-                response.forEach(function(value) {
-                    div.innerHTML += value + "<br>";
+                var string = hxr.responseText;
+                var questions = JSON.parse(string);
+                var resultDiv = document.getElementById('result');
+                clearDomElement(resultDiv);
+                questions.forEach(function(value) {
+                    var singleQuestion = document.createElement('div');
+                    for(var key in value) {
+                        var content = document.createTextNode(key + ": " + value[key]);
+                        singleQuestion.appendChild(content);
+                        singleQuestion.appendChild(document.createElement('br'));
+                    }
+                    singleQuestion.style.border = 'solid black';
+                    singleQuestion.style.marginBottom = '2px';
+                    result.appendChild(singleQuestion);
                 });
             } else {
                 alert('Error!!!');
@@ -43,6 +47,12 @@
         };
 
         hxr.send(json);
+    };
+
+    function clearDomElement(element) {
+        while(element.firstChild) {
+            element.removeChild(element.firstChild);
+        }
     }
 </script>
 
