@@ -26,7 +26,6 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res, next) {
   var link = req.body.link;
-    console.log(link);
   console.log(link);
   searcher = new Searcher();
   searcher.search(link);

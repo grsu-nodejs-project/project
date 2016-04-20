@@ -15,6 +15,8 @@ var convertHtmlToObject = function(html, className, callback) {
     var image = $(context).find('img').attr('src');
     if (image) {
       obj.image = image;
+    } else {
+      obj.image = "";
     }
     resultArray.push(obj);
   });
