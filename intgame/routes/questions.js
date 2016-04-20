@@ -4,7 +4,7 @@ var heredoc = require('heredoc');
 var Searcher = require('../lib/httpPageSearcher');
 //var db = require('mongoose').connection;
 var TemplateReader = require('../lib/templateReader');
-var Questions = require('../lib/questionsSchema');
+//var Questions = require('../lib/questionsSchema');
 
 var questionFormsPath = './handlebars/questionFormTemplate.html';
 var questionViewPath = './handlebars/questionView.html';
