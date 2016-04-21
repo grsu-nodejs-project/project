@@ -1,7 +1,17 @@
 <h2>Login</h2>
 
 <form {{action 'authenticate' on='submit'}}>
+    <label for="login">Login</label>
     {{input value=login placeholder='Login'}} <br>
+    <label for="password">Password</label>
     {{input value=password placeholder='Password' type='password'}} <br>
     <button type="submit">Login</button>
 </form>
+
+{{#if errorMessage}}
+    <div class="alert alert-danger">
+        <p>
+            <strong>Login failed:</strong> <code>{{errorMessage}}</code>
+        </p>
+    </div>
+{{/if}}

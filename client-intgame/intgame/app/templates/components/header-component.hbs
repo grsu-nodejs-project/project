@@ -1,7 +1,19 @@
 <h2>INTGame</h2>
-{{#link-to "games"}}
-  all games
-{{/link-to}}
-{{#link-to "profile"}}
-  profile
-{{/link-to}}
+<div>
+  {{#link-to "games"}}
+      all games
+  {{/link-to}}
+  {{#link-to "profile"}}
+      profile
+  {{/link-to}}
+</div>
+<div>
+  {{#if authManager.isAuthenticated}}
+    <button {{action 'logout'}}>Logout</button>
+    {{#if sessionAccount.account}}
+        <p>Signed in as {{sessionAccount.account.name}}</p>
+    {{/if}}
+  {{else}}
+      <button {{action 'login'}}>Login</button>
+  {{/if}}
+</div>
