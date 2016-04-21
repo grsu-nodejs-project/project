@@ -2,7 +2,6 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/intgame');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 var model = require('../lib/dbModel');
@@ -28,7 +27,7 @@ router.get('/games', function(req, res, next) {
         .then(result => {
           //console.log(result);
           res.type('json');
-          res.send(JSON.stringify({gamesп: result}));
+          res.send(JSON.stringify({games: result}));
         })
         .catch(error => {
           return console.log(error.stack);
