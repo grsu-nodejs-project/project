@@ -6,7 +6,10 @@ export default Ember.Component.extend({
   actions: {
     login() {
       this.sendAction('onLogin');
-      return true;
+    },
+
+    register() {
+      this.sendAction('onRegister');
     },
 
     logout() {

@@ -9,6 +9,10 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       this.transitionTo('login');
     },
 
+    register() {
+      this.transitionTo('register');
+    },
+
     error: function (error, transition) {
       // Handle the error here
       if (error && error.status === 401) {

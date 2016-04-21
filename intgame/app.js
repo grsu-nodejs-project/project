@@ -11,6 +11,7 @@ var routes = require('./routes/index');
 var questions = require('./routes/questions');
 var api = require('./routes/api');
 var token = require('./routes/token');
+var register = require('./routes/register');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use('/', routes);
 app.use('/questions', questions);
 app.use('/api', api);
 app.use('/token', token);
+app.use('/register', register);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

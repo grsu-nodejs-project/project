@@ -10,10 +10,8 @@
 <div>
   {{#if authManager.isAuthenticated}}
     <button {{action 'logout'}}>Logout</button>
-    {{#if sessionAccount.account}}
-        <p>Signed in as {{sessionAccount.account.name}}</p>
-    {{/if}}
   {{else}}
       <button {{action 'login'}}>Login</button>
+      <button {{action 'register'}}>Register</button>
   {{/if}}
 </div>

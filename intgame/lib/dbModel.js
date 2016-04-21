@@ -14,12 +14,14 @@ var userSchema = new Schema({
   password: {
     type: String,
     required: true,
-    unique: true
   },
   name: {
     type: String
   },
   surname: {
+    type: String
+  },
+  token: {
     type: String
   }
 });
