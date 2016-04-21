@@ -7,12 +7,13 @@ db.on('error', console.error.bind(console, 'connection error:'));
 var model = require('../lib/dbModel');
 
 router.use(function(req, res, next) {
-  if (req.header('authorization') !== 'Bearer some bs') {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+  console.log(req.header('authorization'));
+  if (req.header('authorization') !== 'Bearer some bs' && req.method !== 'OPTIONS') {
     return res.status(401).send('Unauthorized');
   }
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
   next();
 });
 
