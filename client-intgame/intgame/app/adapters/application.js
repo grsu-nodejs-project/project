@@ -1,15 +1,8 @@
 import DS from 'ember-data';
-import Ember from 'ember';
+import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
 
-export default DS.RESTAdapter.extend({
-  authManager: Ember.inject.service('auth-manager'),
-
-  headers: Ember.computed('authManager.accessToken', function() {
-    return {
-      "Authorization": `Bearer ${this.get("authManager.accessToken")}`
-    };
-  }),
-
+export default DS.RESTAdapter.extend(DataAdapterMixin, {
+  authorizer: 'authorizer:application',
   namespace: 'api',
   host: 'http://localhost:3000'
 });

@@ -12,6 +12,12 @@ module.exports = function(environment) {
         // e.g. 'with-controller': true
       }
     },
+    contentSecurityPolicy: {
+      'connect-src' : "'self' http://localhost:3000"
+    },
+    'ember-simple-auth': {
+      authenticationRoute: 'http://localhost:3000/token'
+    },
 
     APP: {
       // Here you can pass flags/options to your application instance
@@ -20,6 +26,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
+
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
