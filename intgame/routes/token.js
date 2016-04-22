@@ -30,10 +30,5 @@ router.post('/', function(req, res, next) {
   .catch(err => {
     res.status(400).send({error: 'error in database'});
   });
-  //if (req.body.username == 'login' && req.body.password == 'ok') {
-  //  res.send({access_token: 'some bs'});
-  //} else {
-  //  res.status(400).send({error: 'invalid_grant'});
-  //}
 });
 module.exports = router;

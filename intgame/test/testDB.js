@@ -25,7 +25,8 @@ let promise = new Promise(function(resolve, reject) {
     let searcher = new Searcher();
     searcher.search(link);
     searcher.on('find', (data) => {
-      let game = Games({name: index,
+      let name = `Игра №${index + 1}`;
+      let game = Games({name: name,
           questionTime: 60,
           questions: data
       });

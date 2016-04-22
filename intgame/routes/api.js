@@ -53,4 +53,20 @@ router.get('/games', function(req, res, next) {
         });
 });
 
+router.get('/games/:id', function(req, res, next) {
+  let id = req.params.id;
+  let Games = model.Games;
+  Games.findOne({_id: id})
+  .then((result => {
+    if (result == null) {
+      res.status(404).send({error: 'resource not found'});
+    }
+    let responseJSON = {game: result};
+    res.send(responseJSON);
+  }))
+  .catch((err) => {
+    res.status(400).send({error: 'database error'});
+  });
+});
+
 module.exports = router;

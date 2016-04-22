@@ -1,0 +1,16 @@
+Games
+<ul>
+  {{#each model as |game|}}
+      <li>
+          <div>
+              <div>Название игры: {{game.name}}</div>
+              <div>Длительность ответа на вопрос: {{game.questionTime}}</div>
+              <div>Количество вопросов: {{game.questionsNumber}}</div>
+              <div>
+                  <button {{action "startGame" game.id}}>Начать игру</button>
+              </div>
+          </div>
+      </li>
+  {{/each}}
+</ul>
+{{outlet}}

@@ -1,16 +1,1 @@
-Games
-<ul>
-  {{#each model as |game|}}
-      <li>
-        {{game.name}} {{game.questionTime}}
-          <ul>
-            {{#each game.questions as |question|}}
-              <li>
-                  {{question.question}}
-              </li>
-            {{/each}}
-          </ul>
-      </li>
-  {{/each}}
-</ul>
 {{outlet}}
