@@ -4,3 +4,4 @@ nodejs project
 3. tests with mocha and chai
 4. database mongodb (now I comment code with database, because need to rethink database schema)
 5. simple xmlHttpRequest
+6. ember client app
