@@ -8,7 +8,13 @@ var model = require('../lib/dbModel');
 
 let links = ['http://db.chgk.info/tour/belsin05',
     'http://db.chgk.info/tour/belsc05',
-    'http://db.chgk.info/tour/belcup06'];
+    'http://db.chgk.info/tour/belcup06',
+    'http://db.chgk.info/tour/turn13',
+    'http://db.chgk.info/tour/bayrak',
+    'http://db.chgk.info/tour/tern10mo',
+    'http://db.chgk.info/tour/solika14',
+    'http://db.chgk.info/tour/tor0910'
+];
 
 let Games = model.Games;
 
@@ -29,7 +35,7 @@ let promise = new Promise(function(resolve, reject) {
         } else {
           was++;
           console.log(was);
-          if (was == 3) {
+          if (was == array.length) {
             console.log(true);
             resolve('OKOKOK');
           }
@@ -45,7 +51,7 @@ promise
       Games.find({}, function(err, result) {
         console.log(result.length);
         let game1 = result[0];
-        console.log(game1);
+        //console.log(game1);
         return 'all query complete';
       });
     })
