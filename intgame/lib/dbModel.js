@@ -13,7 +13,7 @@ var userSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   name: {
     type: String

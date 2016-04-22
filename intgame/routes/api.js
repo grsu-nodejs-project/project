@@ -10,11 +10,26 @@ router.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-  console.log(req.header('authorization'));
-  if (req.header('authorization') !== 'Bearer some bs' && req.method !== 'OPTIONS') {
-    return res.status(401).send('Unauthorized');
+  if (req.method === 'OPTIONS') {
+    console.log('OPTIONS');
+    res.status(200).send();
+    return;
   }
-  next();
+  let User = model.Users;
+  let token = req.header('authorization').split(' ')[1];
+
+  User.findOne({token: token})
+  .then(doc => {
+    if (doc == null) {
+      res.status(401).send('Unauthorized');
+    } else {
+      req.user = doc;
+      next();
+    }
+  })
+  .catch(err => {
+    res.status(400).send('Error with database');
+  });
 });
 
 router.get('/games', function(req, res, next) {

@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 var model = require('../lib/dbModel');
+var tokenGenerator = require('../lib/tokenGenerator');
 
 router.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
@@ -17,7 +18,11 @@ router.post('/', function(req, res, next) {
   let login = req.body.username;
   let password = req.body.password;
   console.log(login + ' ' + password);
-  let user = new model.Users({login: login, password: password});
+  let user = new model.Users({
+    login: login,
+    password: password,
+    token: tokenGenerator.generate()
+  });
   user.save().then((result) => {
     console.log('save user');
     res.status(200).send({ok: 'ok'});
