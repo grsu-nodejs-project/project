@@ -19,8 +19,6 @@ export default Ember.Route.extend({
         profile.set('name', params.name);
         profile.set('surname', params.surname);
         profile.set('password', params.password);
-        console.log(params);
-        console.log(profile);
         profile.save();
       })
       .catch((err) => {
