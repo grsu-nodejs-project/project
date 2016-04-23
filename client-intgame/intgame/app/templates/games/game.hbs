@@ -1,13 +1,6 @@
-<h1>{{{model}}}</h1>
 <h1>{{model.name}}</h1>
 <ul>
-  {{#each model.questions as |question|}}
-      <ul>
-          <div>
-              <div>{{question.question}}</div>
-              <div>{{question.answer}}</div>
-          </div>
-      </ul>
-  {{/each}}
+    <h1>{{model.questionsNumber}}</h1>
+  {{question-component question=(current-question model.questions questionsNumber) onAnswer="answer"}}
 </ul>
 {{outlet}}

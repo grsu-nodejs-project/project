@@ -9,7 +9,7 @@ var model = require('../lib/dbModel');
 router.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS, PATCH');
   if (req.method === 'OPTIONS') {
     console.log('OPTIONS');
     res.status(200).send();
@@ -70,8 +70,20 @@ router.get('/games/:id', function(req, res, next) {
 
 router.get('/profiles', function(req, res, next) {
   let profile = {profiles: req.user};
-  console.log(profile);
   res.status(200).send(profile);
+});
+
+router.put('/profiles/:id', function(req, res, next) {
+  let profile = req.body.profile;
+  let User = model.Users;
+  User.findOneAndUpdate({token: req.user.token}, profile)
+  .then(() => {
+    console.log('ok');
+    res.status(200).send({ok: 'ok'});
+  })
+  .catch((err) => {
+    res.status(404).send({err: 'error with database'});
+  });
 });
 
 module.exports = router;

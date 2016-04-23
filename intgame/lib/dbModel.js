@@ -16,10 +16,20 @@ var userSchema = new Schema({
     required: true
   },
   name: {
-    type: String
+    type: String,
+    default: 'name'
   },
   surname: {
-    type: String
+    type: String,
+    default: 'surname'
+  },
+  correctAnswers: {
+    type: Number,
+    default: 0
+  },
+  wrongAnswers: {
+    type: Number,
+    default: 0
   },
   token: {
     type: String
