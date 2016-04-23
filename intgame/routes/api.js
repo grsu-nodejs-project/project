@@ -44,7 +44,6 @@ router.get('/games', function(req, res, next) {
   });
   promise
         .then(result => {
-          //console.log(result);
           res.type('json');
           res.send(JSON.stringify({games: result}));
         })
@@ -67,6 +66,12 @@ router.get('/games/:id', function(req, res, next) {
   .catch((err) => {
     res.status(400).send({error: 'database error'});
   });
+});
+
+router.get('/profiles', function(req, res, next) {
+  let profile = {profiles: req.user};
+  console.log(profile);
+  res.status(200).send(profile);
 });
 
 module.exports = router;

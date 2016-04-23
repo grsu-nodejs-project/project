@@ -1,0 +1,17 @@
+<form {{action 'edit' on='submit'}}>
+    <label for="password">Password</label>
+  {{input value=profile.password placeholder='Password' type='password'}} <br>
+    <label for="name">Name</label>
+  {{input value=profile.name placeholder='Name'}} <br>
+    <label for="surname">Surname</label>
+  {{input value=profile.surname placeholder='Surname'}} <br>
+    <button type="submit">Edit</button>
+</form>
+
+{{#if errorMessage}}
+    <div class="alert alert-danger">
+        <p>
+            <strong>Edit failed:</strong> <code>{{errorMessage}}</code>
+        </p>
+    </div>
+{{/if}}
