@@ -32,19 +32,37 @@ export default Ember.Route.extend(AuthenticatedRouteMixin,{
   actions: {
     answer(param) {
       let controller = this.controllerFor('games.game');
+      let ok = controller.get('correctAnswer');
+      let wa = controller.get('wrongAnswer');
       let nextQuestion = controller.get('questionsNumber') + 1;
       let allQuestion = this.currentModel.get('questionsNumber');
       let playerAnswer = param.answer;
-      console.log(playerAnswer);
       let correctAnswer = this.currentModel.get('questions')[nextQuestion - 1]['answer'];
-      console.log(correctAnswer);
       console.log(this.get('checkAnswer')(playerAnswer, correctAnswer));
+      if (this.get('checkAnswer')(playerAnswer, correctAnswer)) {
+        ok++;
+        controller.set('correctAnswer', ok);
+      } else {
+        wa++;
+        controller.set('wrongAnswer', wa);
+      }
+
       if (nextQuestion == allQuestion) {
-        this.transitionTo('profile');
+        this.store.findAll('profile')
+          .then((result) => {
+            let profile = result.get('firstObject');
+            profile.set('correctAnswers', ok);
+            profile.set('wrongAnswers', wa);
+            profile.save().then(() => {
+              this.transitionTo('profile');
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       } else {
         controller.set('questionsNumber', nextQuestion);
       }
-      console.log(nextQuestion);
     }
   }
 });
