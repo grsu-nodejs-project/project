@@ -59,6 +59,7 @@ router.get('/games/:id', function(req, res, next) {
   .then((result => {
     if (result == null) {
       res.status(404).send({error: 'resource not found'});
+      return;
     }
     let responseJSON = {game: result};
     res.send(responseJSON);
@@ -76,6 +77,7 @@ router.get('/profiles', function(req, res, next) {
 router.put('/profiles/:id', function(req, res, next) {
   let profile = req.body.profile;
   let User = model.Users;
+  console.log(profile);
   User.findOneAndUpdate({token: req.user.token}, profile)
   .then(() => {
     console.log('ok');
