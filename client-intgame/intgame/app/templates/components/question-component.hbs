@@ -1,6 +1,8 @@
 <div>
-    <div>{{question.question}}</div>
-    <form {{action 'answer' on='submit'}}>
+    <div class="question-field">
+      {{question.question}}
+    </div>
+    <form class="right" {{action 'answer' on='submit'}}>
         <label for="answer">Ответ</label>
       {{input value=answer placeholder='some answer'}} <br>
         <button type="submit">Ответить</button>

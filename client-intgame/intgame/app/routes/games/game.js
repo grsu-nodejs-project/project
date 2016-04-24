@@ -3,29 +3,42 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 
 export default Ember.Route.extend(AuthenticatedRouteMixin,{
   model(params) {
-    return this.store.find('game', params.game_id)
+    return this.store.find('game', params.game_id);
   },
   checkAnswer(playerAnswer, correctAnswer) {
-    if (playerAnswer == "" || playerAnswer == undefined) return false;
+    if (playerAnswer === "" || playerAnswer === undefined) {
+      return false;
+    }
     let length1 = playerAnswer.length;
     let length2 = correctAnswer.length;
     let dp = new Array();
     for(let i = 0; i <= length1; ++i) {
       dp[i] = new Array();
-      for(let j = 0; j <= length2; ++j)
+      for(let j = 0; j <= length2; ++j) {
         dp[i][j] = 1000000000;
+      }
     }
-    for(let i = 0; i < length1; ++i) dp[i][0] = i;
-    for(let j = 0; j < length2; ++j) dp[0][j] = j;
+    for(let i = 0; i < length1; ++i) {
+      dp[i][0] = i;
+    }
+    for(let j = 0; j < length2; ++j) {
+      dp[0][j] = j;
+    }
     for(let i = 1; i <= length1; ++i) {
       for(let j = 1; j <= length2; ++j) {
-        if (playerAnswer.charAt(i - 1) === correctAnswer.charAt(j - 1)) dp[i][j] = dp[i - 1][j - 1];
-        else dp[i][j] = Math.min(dp[i - 1][j], Math.min(dp[i][j - 1], dp[i - 1][j - 1])) + 1;
+        if (playerAnswer.charAt(i - 1) === correctAnswer.charAt(j - 1)) {
+          dp[i][j] = dp[i - 1][j - 1];
+        }
+        else {
+          dp[i][j] = Math.min(dp[i - 1][j], Math.min(dp[i][j - 1], dp[i - 1][j - 1])) + 1;
+        }
       }
     }
     let value = dp[length1][length2];
     console.log(value);
-    if (value * 3 >= length2) return false;
+    if (value * 3 >= length2) {
+      return false;
+    }
     return true;
   },
 
@@ -47,7 +60,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin,{
         controller.set('wrongAnswer', wa);
       }
 
-      if (nextQuestion == allQuestion) {
+      if (nextQuestion === allQuestion) {
         this.store.findAll('profile')
           .then((result) => {
             let profile = result.get('firstObject');

@@ -6,10 +6,12 @@ export default Ember.Component.extend({
   actions: {
     register() {
       const {login, password} = this.getProperties('login', 'password');
-      console.log(login, password);
       this.get('registerService').register(login, password)
-        .then(null, (err) => {
-          console.log(err);
+        .then(() => {
+          this.set('errorMessage', null);
+        },
+          (err) => {
+          this.set('errorMessage', 'not unique login');
         });
     }
   }

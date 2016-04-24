@@ -1,0 +1,106 @@
+.profile {
+  width: 40%;
+  display: inline-block;
+  margin: 2% 2% 2% 2%;
+  padding: 2% 2% 2% 2%;
+  min-height: 400px;
+  border-radius: 25px;
+  background-color: #d9edf7;
+}
+
+.header {
+  min-height: 100px;
+}
+
+.inline-header {
+  display: inline-block;
+  width: 33%;
+}
+
+.main-page {
+  height: 500px;
+}
+
+.menu-item {
+  width: 45%;
+  display: inline-block;
+}
+
+.auth-button {
+  display: inline-block;
+  float: right;
+}
+
+.auth-form {
+  width: 40%;
+  height: 200px;
+  align-items: center;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+.errors {
+  color: red;
+}
+
+body {
+  background-color: #f7f7f7;
+}
+
+#footer-page {
+  bottom:0;
+}
+
+.right {
+  width: 40%;
+  float: right;
+}
+
+.left {
+  width: 40%;
+  float: left;
+}
+
+.button {
+  width: 150px;
+  margin-left: 44%;
+}
+
+.start-game-button {
+  margin-left: 80%;
+}
+
+.games-menu {
+  background-color: #d9edf7;
+  width: 60%;
+  border-radius: 25px;
+  min-height: 100px;
+  padding: 10px 10px 10px 10px;
+  margin: 3% 3% 3% 20%;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.game-field {
+  width: 60%;
+  margin: 2% 2% 2% 20%;
+  padding: 2% 2% 2% 2%;
+  min-height: 400px;
+  border-radius: 25px;
+  background-color: #d9edf7;
+}
+
+.question-field {
+  width: 60%;
+  margin: 2% 2% 2% 2%;
+  padding: 2% 2% 2% 2%;
+  min-height: 200px;
+  border-radius: 25px;
+  background-color: #D2E0E6;
+}

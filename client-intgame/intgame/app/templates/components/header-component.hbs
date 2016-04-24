@@ -1,17 +1,29 @@
-<h2>INTGame</h2>
-<div>
-  {{#link-to "games"}}
-      all games
-  {{/link-to}}
-  {{#link-to "profile"}}
-      profile
+<div class="inline-header">
+  {{#link-to "application"}}
+      <h2>INTGame</h2>
   {{/link-to}}
 </div>
-<div>
+<div class="inline-header">
+    <div class="menu-item">
+      {{#link-to "games"}}
+         Игры
+      {{/link-to}}
+    </div>
+    <div class="menu-item">
+      {{#link-to "profile"}}
+          Профиль
+      {{/link-to}}
+    </div>
+</div>
+<div class="inline-header">
   {{#if authManager.isAuthenticated}}
-    <button {{action 'logout'}}>Logout</button>
+    <div class="auth-button">
+      <button {{action 'logout'}}>Logout</button>
+    </div>
   {{else}}
+    <div class="auth-button">
       <button {{action 'login'}}>Login</button>
       <button {{action 'register'}}>Register</button>
+    </div>
   {{/if}}
 </div>

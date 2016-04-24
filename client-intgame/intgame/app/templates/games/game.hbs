@@ -1,6 +1,6 @@
 <h1>{{model.name}}</h1>
-<ul>
-    <h1>{{model.questionsNumber}}</h1>
+<div class="game-field">
+  {{game-statistics correctAnswers=correctAnswer wrongAnswers=wrongAnswer}}
   {{question-component question=(current-question model.questions questionsNumber) onAnswer="answer"}}
-</ul>
+</div>
 {{outlet}}
