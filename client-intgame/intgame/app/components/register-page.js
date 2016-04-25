@@ -6,6 +6,10 @@ export default Ember.Component.extend({
   actions: {
     register() {
       const {login, password} = this.getProperties('login', 'password');
+      if (login === "" || login === undefined || password === "" || password === undefined) {
+        this.set('errorMessage', 'login or password is empty');
+        return;
+      }
       this.get('registerService').register(login, password)
         .then(() => {
           this.set('errorMessage', null);
