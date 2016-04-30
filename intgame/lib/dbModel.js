@@ -33,9 +33,6 @@ var userSchema = new Schema({
   },
   token: {
     type: String
-  },
-  link: {
-    type: String
   }
 });
 
@@ -68,6 +65,9 @@ var gameSchema = new Schema({
   },
   questionTime: {
     type: Number
+  },
+  link: {
+    type: String
   },
   questions: [questionSchema]
 });
