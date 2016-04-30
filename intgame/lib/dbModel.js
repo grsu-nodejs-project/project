@@ -33,6 +33,9 @@ var userSchema = new Schema({
   },
   token: {
     type: String
+  },
+  link: {
+    type: String
   }
 });
 
