@@ -104,3 +104,11 @@ body {
   border-radius: 25px;
   background-color: #D2E0E6;
 }
+
+.transparent {
+  background-color: transparent;
+}
+
+.image {
+  width: 100%;
+}

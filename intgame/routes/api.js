@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 var model = require('../lib/dbModel');
+var Searcher = require('../lib/httpPageSearcher');
 
 router.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
@@ -86,6 +87,35 @@ router.put('/profiles/:id', function(req, res, next) {
   .catch((err) => {
     res.status(404).send({err: 'error with database'});
   });
+});
+
+router.post('/games', function(req, res, next) {
+  let link = req.body.game.link;
+  let name = req.body.game.name;
+  let questionTime = req.body.game.questionTime;
+  let searcher = new Searcher();
+  searcher.search(link);
+  searcher.on('find', function(result) {
+    let Game = model.Games;
+    let game = new Game({
+      name: name,
+      link: link,
+      questionTime: questionTime,
+      questions: result
+    });
+    game.save()
+    .then((result) => {
+      res.status(200).send({ok: 'ok'});
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send();
+    });
+  });
+});
+
+router.delete('/games/:id', function(req, res, next) {
+  res.send({ok: 'ok'});
 });
 
 module.exports = router;

@@ -1,0 +1,28 @@
+<div class="games-menu">
+    <div class="auth-form">
+        <form {{action 'addGame' on='submit'}}>
+            <h2>Добавление новой игры</h2>
+            <div class="left inline-header">
+                <label for="title">Название игры</label>
+            </div>
+          {{input value=title placeholder='Some game'}} <br>
+            <div class="left inline-header">
+                <label for="duration">Время на вопрос</label>
+            </div>
+          {{input value=duration placeholder='60 (секунд)'}} <br>
+            <div class="left inline-header">
+                <label for="link">Ссылка на ресурс</label>
+            </div>
+          {{input value=link placeholder='Link'}} <br>
+            <button class="button" type="submit">Добавить</button>
+        </form>
+
+      {{#if errorMessage}}
+          <div class="errors">
+              <p>
+                  <strong>Add new question failed:</strong> <code>{{errorMessage}}</code>
+              </p>
+          </div>
+      {{/if}}
+    </div>
+</div>
